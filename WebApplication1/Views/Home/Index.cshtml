@@ -1,0 +1,96 @@
+﻿@{
+	ViewBag.Title = "Lista de Produtos";
+	List<produto> lista = (List<produto>)ViewBag.Produtos;
+}
+
+<section>
+
+	<div class="row">
+
+		<div class="col-xs-12">
+			<div class="box">
+				<div class="box-body">
+					<div class="box-tools with-border">
+						<a href='home/cadastrar' class="btn btn-sm btn-success"> INSERIR </a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row">
+
+		<div class="col-xs-12">
+			<div class="box">
+				<div class="box-body">
+
+					<div class="pull-right">
+
+						@using (Html.BeginForm("", ""))
+						{
+
+							@Html.AntiForgeryToken()
+
+							<div class="row">
+								<div class="col-md-8">
+									<select name="categoria" class="form-control select2">
+
+										@foreach (var categoria in ViewBag.categorias)
+										{
+											<option value="@categoria.Value" @if (categoria.Value == ViewBag.catSelecionada) { @Html.Raw("selected") }>@categoria.Text</option>
+										}
+
+									</select>
+
+								</div>
+								<div class="col-md-2">
+									<button type="submit" class="btn btn-sm btn-primary">OK</button>
+								</div>
+							</div>
+							<hr />
+						}
+
+					</div>
+
+					<table class="table table-bordered table-striped dataTable">
+
+						<thead>
+							<tr>
+								<th data-field='id'>ID</th>
+								<th data-field='categoria'>CATEGORIA</th>
+								<th data-field='nome'>PRODUTO</th>
+								<th data-field='preco'>PRECO</th>
+								<th data-field='data_cadastro'>DATA DO CADASTRO</th>
+								<th data-field=''>&nbsp;</th>
+							</tr>
+						</thead>
+
+						<tbody>
+
+							@foreach (var objeto in lista)
+							{
+
+								<tr>
+									<td><a href='home/editar/@objeto.id'> @objeto.id </a></td>
+									<td><a href='home/editar/@objeto.id'> @objeto.categoria </a></td>
+									<td><a href='home/editar/@objeto.id'> @objeto.nome </a></td>
+									<td><a href='home/editar/@objeto.id'> @objeto.preco </a></td>
+									<td><a href='home/editar/@objeto.id'> @objeto.data_cadastro </a></td>
+									<td><a href='home/excluir/@objeto.id' class='btn btn-sm btn-danger'> EXCLUIR </a></td>
+								</tr>
+
+							}
+
+						</tbody>
+
+					</table>
+
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+</section>
